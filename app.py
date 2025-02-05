@@ -9,7 +9,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-    
+
     # Configuração do Flask-Login
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login' # type: ignore
@@ -22,7 +22,7 @@ def create_app():
     # Blueprints
     from auth.routes import auth_bp
     from main.routes import main_bp
-    
+
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
 
