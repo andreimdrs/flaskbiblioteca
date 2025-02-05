@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biblioteca - {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        {% if current_user.is_authenticated %}
+            <span>Olá, {{ current_user.username }}!</span>
+            <a href="{{ url_for('main.profile') }}">Perfil</a>
+            <a href="{{ url_for('auth.logout') }}">Sair</a>
+        {% else %}
+            <a href="{{ url_for('auth.login') }}">Login</a>
+            <a href="{{ url_for('auth.register') }}">Registrar</a>
+        {% endif %}
+    </nav>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flashes">
+                {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</body>
+</html>
