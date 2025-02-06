@@ -4,5 +4,17 @@
 {% block content %}
 <h1>Bem-vindo à Biblioteca Digital</h1>
 <p>Explore nosso acervo de livros.</p>
-<a href="{{ url_for('main.add_book') }}">Add a New Book</a>
+
+<h2>Meus Livros</h2>
+<ul>
+    {% for book in books %}
+        <li>
+            <a href="{{ url_for('main.edit_book', book_id=book.id) }}">{{ book.title }}</a> by {{ book.author }}
+        </li>
+    {% else %}
+        <li>Nenhum livro encontrado.</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('main.add_book') }}">Adicionar Novo Livro</a>
 {% endblock %}
