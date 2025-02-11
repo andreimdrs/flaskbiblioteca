@@ -9,6 +9,10 @@
             <span>Olá, {{ current_user.username }}!</span>
             <a href="{{ url_for('main.profile') }}">Perfil</a>
             <a href="{{ url_for('auth.logout') }}">Sair</a>
+            {% if current_user.role == 'admin' %}
+
+            <a href="{{ url_for('main.register_book')}}">Registrar Livro</a>
+            {% endif %}
         {% else %}
             <a href="{{ url_for('auth.login') }}">Login</a>
             <a href="{{ url_for('auth.register') }}">Registrar</a>

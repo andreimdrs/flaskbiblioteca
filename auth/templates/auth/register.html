@@ -5,6 +5,10 @@
 <form method="POST">
     <input type="text" name="username" placeholder="Nome de usuário" required>
     <input type="password" name="password" placeholder="Senha" required>
+    <select name="role">
+        <option value="user">Usuário</option>
+        <option value="admin">Admin</option>
+    </select>
     <button type="submit">Registrar</button>
 </form>
 {% endblock %}

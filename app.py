@@ -4,7 +4,8 @@ from models import db, User
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'sua_chave_secreta'
+    app.config['SECRET_KEY'] = 'your_strong_random_secret_key_here'
+
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///biblioteca.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

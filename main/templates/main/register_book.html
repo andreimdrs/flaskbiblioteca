@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Registrar Livro{% endblock %}
+{% block content %}
+<h2>Registrar Livro</h2>
+<form method="POST">
+    <input type="text" name="title" placeholder="Título do Livro" required>
+    <input type="text" name="author" placeholder="Autor do Livro" required>
+    <input type="text" name="isbn" placeholder="ISBN do Livro" required>
+    <button type="submit">Registrar</button>
+</form>
+{% endblock %}

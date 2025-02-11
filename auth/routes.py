@@ -25,12 +25,13 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        role = request.form.get('role', 'user')  # Default role to 'user'
         
         if User.query.filter_by(username=username).first():
             flash('Usuário já existe')
             return redirect(url_for('auth.register'))
         
-        new_user = User(username=username) # type: ignore
+        new_user = User(username=username, role=role)  # Assign role to new user
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
