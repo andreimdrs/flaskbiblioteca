@@ -1,36 +1,15 @@
 from flask import Flask
-from flask_login import LoginManager
-from models import db, User
+from models import db
+from auth.routes import auth_bp
 
-def create_app():
-    app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'your_strong_random_secret_key_here'
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/biblioteca.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///biblioteca.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.init_app(app)
-
-    # Configuração do Flask-Login
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login' # type: ignore
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-
-    # Blueprints
-    from auth.routes import auth_bp
-    from main.routes import main_bp
-
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(main_bp)
-
-    return app
+app.register_blueprint(auth_bp)
 
 if __name__ == '__main__':
-    app = create_app()
     with app.app_context():
-        db.create_all()
+        db.create_all()  # Create database tables
     app.run(debug=True)
