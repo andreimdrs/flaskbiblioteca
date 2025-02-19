@@ -14,6 +14,10 @@ def login():
         
         if user and user.check_password(password):
             login_user(user)
+            if user.is_admin:
+                flash('Login de administrador realizado com sucesso')
+            else:
+                flash('Login realizado com sucesso')
             return redirect(url_for('books.index'))
         flash('Credenciais inválidas')
     return render_template('login.html')
@@ -23,17 +27,19 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        is_admin = 'is_admin' in request.form  # Check if admin checkbox was checked
         
         if User.query.filter_by(username=username).first():
             flash('Usuário já existe')
             return redirect(url_for('auth.register'))
         
-        user = User(username=username) # type: ignore
+        user = User(username=username, is_admin=is_admin) # type: ignore
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
         
         login_user(user)
+        flash('Registro realizado com sucesso!')
         return redirect(url_for('books.index'))
     return render_template('register.html')
 

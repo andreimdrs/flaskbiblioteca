@@ -13,6 +13,10 @@ def index():
 @books_bp.route('/add', methods=['POST'])
 @login_required
 def add():
+    if not current_user.is_admin:
+        flash('Apenas administradores podem adicionar livros')
+        return redirect(url_for('books.index'))
+        
     title = request.form['title']
     author = request.form['author']
     
@@ -20,4 +24,5 @@ def add():
     db.session.add(book)
     db.session.commit()
     
+    flash('Livro adicionado com sucesso!')
     return redirect(url_for('books.index'))
