@@ -1,5 +1,5 @@
 # book.py
-from init import db
+from app.init import db
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
