@@ -1,14 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
     {% if current_user.is_authenticated and current_user.is_admin %}
-        <h1>Adicionar Livro</h1>
-        <form method="POST" action="{{ url_for('books.add') }}">
-            <label for="title">Título:</label>
-            <input type="text" name="title" required>
-            <label for="author">Autor:</label>
-            <input type="text" name="author" required>
-            <button type="submit">Adicionar</button>
+        <h1 class="mb-4">Adicionar Livro</h1>
+        <form method="POST" action="{{ url_for('books.add') }}" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="title" class="form-label">Título:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+                <div class="invalid-feedback">
+                    Por favor, insira o título do livro.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Autor:</label>
+                <input type="text" class="form-control" id="author" name="author" required>
+                <div class="invalid-feedback">
+                    Por favor, insira o nome do autor.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar Livro</button>
         </form>
+
     {% else %}
         <p>Apenas administradores podem adicionar livros.</p>
     {% endif %}
